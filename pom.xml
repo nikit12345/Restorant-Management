@@ -152,6 +152,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>restorent</finalName>
 	</build>
 
 </project>
