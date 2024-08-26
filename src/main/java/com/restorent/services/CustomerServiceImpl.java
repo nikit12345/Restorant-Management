@@ -52,15 +52,21 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 	
 	@Override
-	public List<ProductDto> getAllProdByCategory(Long categoryId) {
-		
+	public List<ProductDto> getAllProdByCategoryId(Long categoryId) {
+	
 		return productRepo.findAllProductsByCategoryId(categoryId).stream().map(Product
 				::getProductDto).collect(Collectors.toList());
+	}
+	
+	@Override
+	public Optional<Category> getByCategoryId(Long categoryId) {
+		return categoryRepo.findById(categoryId);
+		
 	}
 
 	@Override
 	public List<ProductDto> getProductByCategoryAndTitle(Long categoryId, String title) {
-		// TODO Auto-generated method stub
+		
 		return productRepo.findAllByCategoryIdAndNameContaining(categoryId, title).stream().map
 				(Product::getProductDto).collect(Collectors.toList());
 	}
@@ -74,16 +80,26 @@ public class CustomerServiceImpl implements CustomerService{
         	reservation.setDescription(reservationDto.getDescription());
             reservation.setDate(reservationDto.getDate());
             reservation.setUser(optional.get());
-            reservation.setReservationStatus(ReservationStatus.PENDING);
+            reservation.setReservationStatus(reservationDto.getReservationStatus());
+            reservation.setCustomerName(reservationDto.getCustomerName());
+            reservation.setCustomerId(reservationDto.getCustomerId());
             
             Reservation postedReservatopn = reservationRepo.save(reservation);
             
             ReservationDto postedrReservationDto = new ReservationDto();
-            postedrReservationDto.setId(postedrReservationDto.getId());
+            postedrReservationDto.setId(postedReservatopn.getId());
+            postedrReservationDto.setTableType(postedReservatopn.getTableType());
+            postedrReservationDto.setDescription(postedReservatopn.getDescription());
+            postedrReservationDto.setDate(postedReservatopn.getDate());
+            postedrReservationDto.setReservationStatus(postedReservatopn.getReservationStatus());
+            postedrReservationDto.setCustomerName(postedReservatopn.getCustomerName());
+            postedrReservationDto.setCustomerId(postedReservatopn.getCustomerId());
             return(postedrReservationDto);
         }
 		return null;
 	}
+
+	
 
 	
 

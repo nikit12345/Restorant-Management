@@ -30,6 +30,12 @@ public class Reservation {
 	private Date date;
 	
 	private ReservationStatus  reservationStatus;
+	 
+	private String CustomerName;
+	
+	private Long customerId;
+	
+
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -37,17 +43,21 @@ public class Reservation {
     @JsonIgnore
     private User user;
 
+	
+	
 	public Reservation(Long id, String tableType, String description, Date date, ReservationStatus reservationStatus,
-			User user) {
+			String customerName, Long customerId, User user) {
 		super();
 		this.id = id;
 		this.tableType = tableType;
 		this.description = description;
 		this.date = date;
 		this.reservationStatus = reservationStatus;
+		CustomerName = customerName;
+		this.customerId = customerId;
 		this.user = user;
 	}
-	
+
 	public ReservationDto getReservationDto() {
 		ReservationDto reservationDto = new ReservationDto();
 		reservationDto.setTableType(tableType);
@@ -109,6 +119,22 @@ public class Reservation {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getCustomerName() {
+		return CustomerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		CustomerName = customerName;
+	}
+
+	public Long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
 	}
 	
 	

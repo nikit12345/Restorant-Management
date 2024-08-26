@@ -1,6 +1,7 @@
 package com.restorent.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,16 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.restorent.dto.CategoryDto;
 import com.restorent.dto.ProductDto;
 import com.restorent.dto.ReservationDto;
+import com.restorent.entity.Category;
+import com.restorent.exception.CategoryNotFoundException;
 import com.restorent.services.CustomerService;
 
 @RestController
 @RequestMapping("api/customer")
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class CustomerController {
 	
 	@Autowired
 	private CustomerService customerService;
 	
-    @CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/getAllCategory")
 	public ResponseEntity<List<CategoryDto>> getAllCategory(){
 		List<CategoryDto> categoryDto = customerService.getAllCategory();
@@ -40,20 +44,24 @@ public class CustomerController {
 		return ResponseEntity.ok(categoryDto);
 	}
    
-   @GetMapping("{categoryId}/productsById")//get products by category
-   @CrossOrigin(origins = "http://localhost:4200")
+   @GetMapping("{categoryId}/productsById")
+   public ResponseEntity<List<ProductDto>> getProductByCategoryId(@PathVariable Long categoryId) {
+       List<ProductDto> prodDtos = customerService.getAllProdByCategoryId(categoryId);
 
-	public ResponseEntity<List< ProductDto>> getProductByCategoryId(@PathVariable Long categoryId){
-		List<ProductDto> prodDtos = customerService.getAllProdByCategory(categoryId);
-		if(prodDtos==null) return ResponseEntity.notFound().build();
-		return ResponseEntity.ok(prodDtos);
-	}
+       if (prodDtos == null || prodDtos.isEmpty()) {
+           throw new CategoryNotFoundException("Product whith category id is not present");
+       }
+
+       return ResponseEntity.ok(prodDtos);
+   }
+
    
    @GetMapping("{categoryId}/product/{title}")
-   @CrossOrigin(origins = "http://localhost:4200")
-
 	public ResponseEntity<List< ProductDto>> getProductByCategoryAndTitle(@PathVariable Long categoryId ,@PathVariable String title){
-		List<ProductDto> prodDtos = customerService.getProductByCategoryAndTitle(categoryId, title);
+		Optional<Category> d= customerService.getByCategoryId(categoryId);
+		if(d.isEmpty() || d==null) {
+	           throw new CategoryNotFoundException("Product whith category id is not present");}
+	   List<ProductDto> prodDtos = customerService.getProductByCategoryAndTitle(categoryId, title);
 		if(prodDtos==null) return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(prodDtos);
 	}

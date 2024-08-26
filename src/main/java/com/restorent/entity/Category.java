@@ -23,6 +23,7 @@ public class Category {
 	@Column(columnDefinition = "longblob")
 	private byte[] img;
 	
+	
 	public Category() {}
 
 	public Category(Long id, String name, String description, byte[] img) {

@@ -44,17 +44,21 @@ public class WebSecurityConfig implements WebMvcConfigurer{
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(req -> req
-                .requestMatchers("/signup","/login","category","getAllCategory","getAllCategoryBytitle","/{categoryId}/product","{categoryId}/productsById"
-                		,"{categoryId}/product/{title}","deleteProd/{prodId}","updateProd/{prodId}","getProduct/{prodId}"
-                		,"api/customer/**","/reservation","/reservation/{reservationId}/{status}").permitAll()
+                .requestMatchers("/signup", "/login", "/category").permitAll() // Allow these URLs without authentication
+                .requestMatchers("/getAllCategory","/getAllCategoryBytitle","/{categoryId}/product","{categoryId}/productsById"
+                    ,"{categoryId}/product/{title}","deleteProd/{prodId}","updateProd/{prodId}","getProduct/{prodId}"
+                    ,"api/customer/**","/reservation","/reservation/{reservationId}/{status}","/swagger-ui/**")
+                    .authenticated() // Require authentication for these URLs
                 .requestMatchers("/category").hasAnyAuthority(UserRole.ADMIN.name())
                 .anyRequest().authenticated())
             .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-            ;
+            .authenticationProvider(authenticationProvider())
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
+
+
 
     @Bean
     public AuthenticationProvider authenticationProvider() {

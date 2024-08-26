@@ -1,5 +1,6 @@
 package com.restorent.util;
 
+import java.beans.JavaBean;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
 @Component
+@JavaBean
 public class JwtUtil {
     
     private static final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A713474375367566B59703373367639792F423F4528482B4D6251655468576D5A713474375367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
