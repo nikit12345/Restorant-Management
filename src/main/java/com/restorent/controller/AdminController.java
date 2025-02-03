@@ -26,7 +26,7 @@ import com.restorent.entity.Product;
 import com.restorent.services.AdminService;
 
 @RestController
-@RequestMapping
+@RequestMapping()
 public class AdminController {
 	
 	@Autowired

@@ -1,5 +1,7 @@
 package com.restorent.entity;
 
+import java.io.Serializable;
+
 import com.restorent.dto.CategoryDto;
 
 import jakarta.persistence.Column;
@@ -11,8 +13,12 @@ import jakarta.persistence.Lob;
 
 
 @Entity
-public class Category {
+public class Category implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

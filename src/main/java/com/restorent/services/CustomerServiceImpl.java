@@ -53,7 +53,8 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	@Override
 	public List<ProductDto> getAllProdByCategoryId(Long categoryId) {
-	
+		ProductDto dto=new ProductDto();
+		
 		return productRepo.findAllProductsByCategoryId(categoryId).stream().map(Product
 				::getProductDto).collect(Collectors.toList());
 	}

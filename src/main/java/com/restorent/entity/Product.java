@@ -1,5 +1,7 @@
 package com.restorent.entity;
 
+import java.io.Serializable;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -17,11 +19,16 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Product {
+public class Product implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(name="title")
 	private String name;
 	private String price;
 	private String description;

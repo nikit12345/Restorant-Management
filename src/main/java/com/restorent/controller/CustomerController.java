@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -45,16 +46,20 @@ public class CustomerController {
 	}
    
    @GetMapping("{categoryId}/productsById")
-   public ResponseEntity<List<ProductDto>> getProductByCategoryId(@PathVariable Long categoryId) {
-       List<ProductDto> prodDtos = customerService.getAllProdByCategoryId(categoryId);
+   public ResponseEntity<List<ProductDto>> getProductByCategoryId(@PathVariable("categoryId") Long categoryId) {
+       List<ProductDto> prodDtos = getCachedProductsByCategoryId(categoryId);
 
        if (prodDtos == null || prodDtos.isEmpty()) {
-           throw new CategoryNotFoundException("Product whith category id is not present");
+           throw new CategoryNotFoundException("Product with category id is not present");
        }
 
        return ResponseEntity.ok(prodDtos);
    }
 
+   @Cacheable(value = "products", key = "#categoryId")
+   public List<ProductDto> getCachedProductsByCategoryId(Long categoryId) {
+       return customerService.getAllProdByCategoryId(categoryId);
+   }
    
    @GetMapping("{categoryId}/product/{title}")
 	public ResponseEntity<List< ProductDto>> getProductByCategoryAndTitle(@PathVariable Long categoryId ,@PathVariable String title){

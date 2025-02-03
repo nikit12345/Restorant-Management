@@ -44,7 +44,7 @@ public class WebSecurityConfig implements WebMvcConfigurer{
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(req -> req
-                .requestMatchers("/signup", "/login", "/category").permitAll() // Allow these URLs without authentication
+                .requestMatchers("/signup", "/login", "/category","/swagger-ui/**","/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll() // Allow these URLs without authentication
                 .requestMatchers("/getAllCategory","/getAllCategoryBytitle","/{categoryId}/product","{categoryId}/productsById"
                     ,"{categoryId}/product/{title}","deleteProd/{prodId}","updateProd/{prodId}","getProduct/{prodId}"
                     ,"api/customer/**","/reservation","/reservation/{reservationId}/{status}","/swagger-ui/**")
