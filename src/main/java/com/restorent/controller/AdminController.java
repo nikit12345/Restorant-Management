@@ -30,6 +30,7 @@ import com.restorent.services.AdminService;
 public class AdminController {
 	
 	@Autowired
+	
 	private AdminService adminService;
 		
 	@PostMapping("category")
