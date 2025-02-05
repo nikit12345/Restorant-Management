@@ -1,5 +1,8 @@
+
+   
+   
 FROM openjdk:17
 EXPOSE 8080
-ADD target/restorent.jar restorent.jar
-ENTRYPOINT ["java","-jar","/restorent.jar"]
-   
+COPY restorent.jar /restorent.jar  # Use COPY instead of ADD
+ENTRYPOINT ["java", "-jar", "/restorent.jar"]
+ 
