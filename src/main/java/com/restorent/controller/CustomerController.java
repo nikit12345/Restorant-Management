@@ -25,6 +25,7 @@ import com.restorent.services.CustomerService;
 @RestController
 @RequestMapping("api/customer")
 @CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://13.201.59.6:6063")
 
 public class CustomerController {
 	

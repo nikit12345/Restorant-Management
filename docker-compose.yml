@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  app:
+    image: nikitamane/restaurant:latest  # Correct image name if typo
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/my-db  # Use service name 'db'
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: my-db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+    ports:
+      - "3307:3306"
+    restart: always
+
+    

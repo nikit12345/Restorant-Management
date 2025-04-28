@@ -1,4 +1,9 @@
-FROM openjdk:17
-EXPOSE 8080
-COPY restorent.jar /restorent.jar
-ENTRYPOINT ["java", "-jar", "/restorent.jar"]
+FROM openjdk:17-alpine
+WORKDIR	/opt
+ENV PORT 8082
+EXPOSE 8082
+COPY target/*jar /opt/restorent-management.jar
+ENTRYPOINT exec java $JAVA_OPTS -jar restorent-management.jar
+   
+   
+  

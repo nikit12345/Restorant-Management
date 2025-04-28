@@ -29,6 +29,8 @@ import com.restorent.util.JwtUtil;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://13.201.59.6:6063")
 public class AuthController {
 
     @Autowired

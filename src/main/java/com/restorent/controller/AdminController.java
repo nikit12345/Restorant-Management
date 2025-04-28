@@ -27,6 +27,9 @@ import com.restorent.services.AdminService;
 
 @RestController
 @RequestMapping()
+@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://13.201.59.6:6063")
+
 public class AdminController {
 	
 	@Autowired

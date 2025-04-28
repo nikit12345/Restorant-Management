@@ -13,7 +13,7 @@ public interface UserRepo extends JpaRepository<User, Long>{
 	
 	public Optional<User> findFirstByEmail(String email);
 
-	public User findByUserRole(UserRole admin);
+	public User findByUserRole(UserRole userRole);
 	
 
 }
