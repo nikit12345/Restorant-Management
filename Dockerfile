@@ -1,4 +1,4 @@
-FROM openjdk:17-alpine
+FROM openjdk:17-slim
 WORKDIR	/opt
 ENV PORT 8082
 EXPOSE 8082
