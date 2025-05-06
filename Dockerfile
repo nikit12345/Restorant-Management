@@ -1,4 +1,4 @@
-FROM openjdk:17-slim
+FROM eclipse-temurin:17-jdk-jammy
 WORKDIR	/opt
 ENV PORT 8082
 EXPOSE 8082
